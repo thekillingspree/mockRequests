@@ -2,25 +2,25 @@ const express = require("express")
 const app = express()
 const morgan = require("morgan")
 
-app.use(morgan('tiny'))
+app.use(morgan('short'))
 
 app.get('/', (req, res) => {
-    res.status(200).send("I mock Azure App Service")
+    res.status(200).send("Send Requests to Me 😉")
 })
 
 app.get('/5xx', (req, res) => {
     console.error("This is a 5xx error")
-    res.status(500).send('Error')
+    res.status(500).send('A 500 Error.')
 })
 
 app.get('/4xx', (req, res) => {
     console.error("This is a 4xx error")
-    res.status(404).send('Error')
+    res.status(404).send('A 400 Error')
 })
 
 app.get('/2xx', (req, res) => {
     console.log("A normal request")
-    res.status(200).send('Error')
+    res.status(200).send('A successful 200 request.')
 })
 
 const timer = (ms) => {
@@ -34,16 +34,20 @@ app.get('/delay', async (req, res) => {
 })
 
 app.get('/slow', (req, res) => {
+    //stupid code ahead
+    
     for (let index = 0; index < 9999999999999; index++) {
         for (let j = 0; j < 9999999999999; j++) {
             for (let x = 0; x < 9999999999999; x++) {
+
             }
         }
     }
+    // this'll take a long time 🥲
 })
 
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
-    console.log('Server up and running on http://localhost/')
+    console.log(`Server up and running on http://localhost/${port}`)
 })
